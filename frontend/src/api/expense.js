@@ -1,9 +1,19 @@
+const API_URL = "http://localhost:5000/api/expenses";
+
+// helper to get token
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
+
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+};
+
 export const createExpense = async (data) => {
-  const res = await fetch("http://localhost:5000/api/expenses", {
+  const res = await fetch(API_URL, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
 
@@ -15,8 +25,11 @@ export const createExpense = async (data) => {
 
   return result;
 };
+
 export const getExpenses = async () => {
-  const res = await fetch("http://localhost:5000/api/expenses");
+  const res = await fetch(API_URL, {
+    headers: getAuthHeaders(),
+  });
 
   const result = await res.json();
 
@@ -26,22 +39,34 @@ export const getExpenses = async () => {
 
   return result;
 };
+
 export const deleteExpense = async (id) => {
-  const res = await fetch(`http://localhost:5000/api/expenses/${id}`, {
+  const res = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
+    headers: getAuthHeaders(),
   });
 
-  return res.json();
+  const result = await res.json();
+
+  if (!res.ok) {
+    throw new Error(result.message || "Failed to delete expense");
+  }
+
+  return result;
 };
 
 export const updateExpense = async (id, data) => {
-  const res = await fetch(`http://localhost:5000/api/expenses/${id}`, {
+  const res = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
 
-  return res.json();
+  const result = await res.json();
+
+  if (!res.ok) {
+    throw new Error(result.message || "Failed to update expense");
+  }
+
+  return result;
 };

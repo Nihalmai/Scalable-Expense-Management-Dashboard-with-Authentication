@@ -14,13 +14,19 @@ function Login() {
     try {
       const res = await loginUser({ email, password });
 
-      if (res.user) {
+      // ✅ CHECK TOKEN
+      if (res.token && res.user) {
+        // 🔥 STORE TOKEN
+        localStorage.setItem("token", res.token);
+
+        // (optional but useful)
         localStorage.setItem("user", JSON.stringify(res.user));
+
         window.location.href = "/dashboard";
       } else {
         setError(res.message || "Login failed");
       }
-    } catch {
+    } catch (err) {
       setError("Something went wrong");
     }
   };

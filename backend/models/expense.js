@@ -7,26 +7,31 @@ const expenseSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-
     amount: {
       type: Number,
       required: true,
     },
-
-    // Name of the person who paid
     paidBy: {
       type: String,
       required: true,
-      trim: true,
     },
-
-    // Names of people among whom expense is split
     splitBetween: {
       type: [String],
       required: true,
     },
+
+    // 🔥 NEW: link expense to a user
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-export default mongoose.model("Expense", expenseSchema);
+const Expense = mongoose.model("Expense", expenseSchema);
+
+export default Expense;
