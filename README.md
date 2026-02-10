@@ -35,8 +35,11 @@ npm start
 - User specific expense isolation
 
 ## How I Would Scale This for Production
-- Deploy frontend on Vercel and backend on AWS
-- Use Redis caching for faster API response
-- Implement refresh tokens for better auth security
-- Add Docker containerization
-- Use load balancer for handling high traffic
+If this application were to scale for real-world usage:
+- Deploy frontend on Vercel and backend on AWS/Render
+- Use Redis caching for faster performance
+- Implement refresh token authentication
+- Use Docker for containerization
+- Add load balancer for high traffic
+- Use cloud database with backups
+- Add rate limiting & security middleware
