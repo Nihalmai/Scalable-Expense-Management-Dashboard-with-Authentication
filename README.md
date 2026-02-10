@@ -21,13 +21,11 @@ Authentication: JWT
 ## How to Run Locally
 
 Backend:
-cd backend  
-npm install  
+cd backend   
 npm run dev  
 
 Frontend:
-cd frontend  
-npm install  
+cd frontend   
 npm start  
 
 ## Security Features
